@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Love Elk Grove — Your Local Community Hub</title>
+  <meta name="description" content="Love Elk Grove is your go-to source for local events, community news, and conversations about life in Elk Grove, California." />
+  <meta property="og:title" content="Love Elk Grove" />
+  <meta property="og:description" content="Local events, the Love Elk Grove Podcast, and everything happening in our community." />
+  <meta property="og:url" content="https://loveelkgrove.com" />
+  <meta property="og:type" content="website" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ═══════════════════════════════════════════
+       GOOGLE ADSENSE — paste your publisher ID
+       Replace ca-pub-XXXXXXXXXXXXXXXXX below
+       then uncomment the script tag
+  ═══════════════════════════════════════════ -->
+  <!--
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #2B7FBB;
+      --blue-dk: #1C5F8F;
+      --gold:    #E8A020;
+      --gold-lt: #FDF3E3;
+      --slate:   #1C2B3A;
+      --white:   #FDFAF5;
+      --sage:    #E8F0E4;
+      --muted:   #6B7C8D;
+      --rule:    rgba(28,43,58,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--slate); font-family: 'DM Sans', sans-serif; line-height: 1.6; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--slate);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 58px;
+      position: sticky; top: 0; z-index: 200;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem; color: var(--white); text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo .heart { color: var(--gold); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      color: rgba(253,250,245,0.7); text-decoration: none;
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-advertise {
+      background: var(--gold); color: var(--slate);
+      padding: 0.4rem 1rem; border-radius: 2px;
+      font-size: 0.75rem; font-weight: 600; text-decoration: none;
+      letter-spacing: 0.04em; transition: opacity 0.2s;
+    }
+    .nav-advertise:hover { opacity: 0.85; }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--blue);
+      overflow: hidden; height: 34px;
+      display: flex; align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .ticker-label {
+      background: var(--gold); color: var(--slate);
+      padding: 0 1rem; height: 100%; display: flex; align-items: center;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .ticker-track-wrap { overflow: hidden; flex: 1; }
+    .ticker-track {
+      display: flex; align-items: center;
+      animation: ticker-scroll 28s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      color: rgba(253,250,245,0.9); font-size: 0.78rem; font-weight: 400;
+      padding: 0 2.5rem;
+    }
+    .ticker-item::before { content: '◆'; margin-right: 0.6rem; color: var(--gold); font-size: 0.5rem; vertical-align: middle; }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── AD SLOT STYLES ── */
+    .ad-slot {
+      display: flex; align-items: center; justify-content: center;
+      background: #f0f4f8;
+      border: 1.5px dashed #c5d3de;
+      color: var(--muted); font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.05em; text-align: center;
+      position: relative;
+    }
+    .ad-slot::before {
+      content: 'ADVERTISEMENT';
+      position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+      font-size: 0.6rem; letter-spacing: 0.12em; color: #aab8c4;
+    }
+    .ad-leaderboard { width: 100%; height: 90px; max-width: 728px; margin: 0 auto; }
+    .ad-rectangle  { width: 300px; height: 250px; flex-shrink: 0; }
+    .ad-banner     { width: 100%; height: 90px; }
+
+    /* ── LEADERBOARD AD WRAP ── */
+    .ad-top-wrap {
+      padding: 0.75rem 2rem;
+      display: flex; justify-content: center;
+      background: var(--white);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--slate) 0%, #2a4a66 100%);
+      padding: 5rem 2rem 4rem;
+      display: grid; place-items: center; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    /* Subtle concentric circle bg — signature restraint */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 70% 50%, rgba(43,127,187,0.25) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 680px; }
+    .hero-eyebrow {
+      display: inline-block; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.6rem, 6.5vw, 4.2rem);
+      line-height: 1.1; color: var(--white); margin-bottom: 1.2rem;
+    }
+    .hero h1 em { font-style: italic; color: #7DC4F0; }
+    .hero-sub {
+      font-size: 1rem; color: rgba(253,250,245,0.65);
+      max-width: 480px; margin: 0 auto 2.2rem; font-weight: 300; line-height: 1.75;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; text-decoration: none; border-radius: 2px; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.05em; padding: 0.8rem 1.8rem; transition: opacity 0.2s; cursor: pointer; border: none; }
+    .btn-gold { background: var(--gold); color: var(--slate); }
+    .btn-outline { background: transparent; color: var(--white); border: 1.5px solid rgba(253,250,245,0.35); }
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn:hover { opacity: 0.82; }
+
+    /* ── LAYOUT SHELL ── */
+    .page-body { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .section-pad { padding: 4.5rem 0; }
+    .section-alt { background: var(--sage); }
+    .section-alt-wrap { background: var(--sage); }
+    .section-eyebrow {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      color: var(--slate); line-height: 1.2; margin-bottom: 0.8rem;
+    }
+    .section-sub { font-size: 0.92rem; color: var(--muted); max-width: 500px; line-height: 1.7; }
+    .section-hd { margin-bottom: 2.5rem; }
+    hr.divider { border: none; border-top: 1px solid var(--rule); margin: 0; }
+
+    /* ── PODCAST ── */
+    .podcast-layout {
+      display: grid; grid-template-columns: 1fr 340px; gap: 3rem; align-items: start;
+    }
+    .podcast-embed-wrap {
+      position: relative; aspect-ratio: 16/9;
+      background: var(--slate); border-radius: 4px; overflow: hidden;
+    }
+    .podcast-embed-wrap iframe { width: 100%; height: 100%; border: none; }
+    .podcast-placeholder {
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+      background: linear-gradient(135deg, var(--slate), #2a4a66);
+      color: rgba(253,250,245,0.5); text-align: center; padding: 2rem;
+    }
+    .placeholder-play {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(232,160,32,0.2); border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
+    .placeholder-text { font-size: 0.85rem; line-height: 1.6; }
+    .placeholder-text strong { display: block; font-size: 1rem; color: var(--white); margin-bottom: 0.3rem; font-family: 'DM Serif Display', serif; }
+
+    .episode-panel h3 {
+      font-family: 'DM Serif Display', serif; font-size: 1.1rem;
+      color: var(--slate); margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem; border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+    .episode-list { list-style: none; }
+    .ep-item {
+      display: flex; gap: 0.9rem; padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule); cursor: pointer;
+      transition: background 0.15s; border-radius: 2px;
+    }
+    .ep-item:hover .ep-title { color: var(--blue); }
+    .ep-num {
+      font-family: 'DM Serif Display', serif; font-size: 1.2rem;
+      color: var(--gold); min-width: 2.2rem; line-height: 1;
+      padding-top: 2px;
+    }
+    .ep-title { font-size: 0.85rem; font-weight: 600; color: var(--slate); margin-bottom: 0.2rem; line-height: 1.4; transition: color 0.2s; }
+    .ep-meta { font-size: 0.72rem; color: var(--muted); }
+    .ep-coming { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-top: 0.5rem; }
+    .podcast-links { margin-top: 1.5rem; display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+    .podcast-links span { font-size: 0.78rem; color: var(--muted); }
+    .platform-btn {
+      display: inline-block; padding: 0.35rem 0.9rem;
+      background: var(--sage); color: var(--slate); text-decoration: none;
+      font-size: 0.72rem; font-weight: 600; border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .platform-btn:hover { background: #d4e4cc; }
+
+    /* ── EVENTS ── */
+    .events-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem;
+    }
+    .event-card {
+      background: var(--white); border-radius: 3px;
+      border: 1px solid var(--rule);
+      display: flex; gap: 1.2rem; padding: 1.2rem 1.4rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .event-card:hover { box-shadow: 0 6px 20px rgba(28,43,58,0.08); transform: translateY(-2px); }
+    .event-date-block {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: var(--blue); color: #fff; border-radius: 3px;
+      min-width: 52px; padding: 0.5rem 0.4rem; text-align: center; flex-shrink: 0;
+    }
+    .ev-month { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; }
+    .ev-day { font-family: 'DM Serif Display', serif; font-size: 1.8rem; line-height: 1; }
+    .event-info { flex: 1; }
+    .event-tag {
+      display: inline-block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--blue);
+      background: rgba(43,127,187,0.1); padding: 0.15rem 0.5rem;
+      border-radius: 2px; margin-bottom: 0.4rem;
+    }
+    .event-info h3 { font-size: 0.92rem; font-weight: 600; color: var(--slate); margin-bottom: 0.3rem; line-height: 1.35; }
+    .event-info p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.5rem; }
+    .event-time { font-size: 0.72rem; color: var(--blue); font-weight: 500; }
+    .events-footer { margin-top: 2rem; text-align: center; }
+    .events-footer p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.8rem; }
+
+    /* ── AD SIDEBAR LAYOUT ── */
+    .content-sidebar-layout {
+      display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: start;
+    }
+    .sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 1.5rem; }
+    .sidebar-widget { background: var(--white); border: 1px solid var(--rule); border-radius: 3px; padding: 1.2rem; }
+    .widget-title {
+      font-family: 'DM Serif Display', serif; font-size: 1rem;
+      color: var(--slate); margin-bottom: 0.8rem;
+      padding-bottom: 0.5rem; border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+
+    /* ── ADVERTISE SECTION ── */
+    .advertise-section { background: var(--slate); padding: 4rem 2rem; text-align: center; }
+    .advertise-section h2 {
+      font-family: 'DM Serif Display', serif; font-size: 2rem;
+      color: var(--white); margin-bottom: 0.8rem;
+    }
+    .advertise-section p { color: rgba(253,250,245,0.6); font-size: 0.95rem; max-width: 520px; margin: 0 auto 2rem; line-height: 1.7; }
+    .ad-tiers { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .ad-tier {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 3px; padding: 1.4rem 2rem; min-width: 180px; text-align: center;
+    }
+    .ad-tier-name { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .ad-tier-size { font-size: 0.82rem; color: rgba(253,250,245,0.6); margin-bottom: 0.3rem; }
+    .ad-tier-placement { font-size: 0.78rem; color: rgba(253,250,245,0.45); }
+
+    /* ── NEWSLETTER ── */
+    .newsletter { padding: 3.5rem 2rem; background: var(--gold-lt); text-align: center; border-top: 3px solid var(--gold); }
+    .newsletter h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--slate); margin-bottom: 0.5rem; }
+    .newsletter p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .nl-form { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+    .nl-form input {
+      padding: 0.8rem 1.2rem; border: 1.5px solid rgba(28,43,58,0.2);
+      background: #fff; border-radius: 2px; font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif; width: 280px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .nl-form input:focus { border-color: var(--blue); }
+
+    /* ── FOOTER ── */
+    footer { background: #111C26; color: rgba(253,250,245,0.45); padding: 2.5rem 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+    .footer-brand { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: rgba(253,250,245,0.8); }
+    .footer-brand .heart { color: var(--gold); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { color: rgba(253,250,245,0.4); text-decoration: none; font-size: 0.78rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.75rem; width: 100%; text-align: center; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .podcast-layout { grid-template-columns: 1fr; }
+      .content-sidebar-layout { grid-template-columns: 1fr; }
+      .sidebar-sticky { position: static; }
+      .ad-rectangle { width: 100%; max-width: 340px; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 3.5rem 1.2rem 3rem; }
+      .page-body { padding: 0 1.2rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="nav-logo"><span class="heart">♥</span> Love Elk Grove</a>
+  <ul class="nav-links">
+    <li><a href="#podcast">Podcast</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#advertise">Advertise</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+  </ul>
+  <a href="#advertise" class="nav-advertise">Advertise With Us</a>
+</nav>
+
+<!-- ═══ TICKER — Signature element ═══ -->
+<div class="ticker">
+  <div class="ticker-label">Elk Grove</div>
+  <div class="ticker-track-wrap">
+    <div class="ticker-track">
+      <!-- First copy -->
+      <span class="ticker-item">Farmers Market every Saturday at Elk Grove Regional Park</span>
+      <span class="ticker-item">New episode of the Love Elk Grove Podcast dropping soon</span>
+      <span class="ticker-item">City Council Meeting — June 25 at City Hall</span>
+      <span class="ticker-item">Summer Concert Series returns to Old Town July 4th weekend</span>
+      <span class="ticker-item">Elk Grove Unified School District end-of-year events announced</span>
+      <span class="ticker-item">Advertise your local business — reach 10,000+ Elk Grove residents</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="ticker-item">Farmers Market every Saturday at Elk Grove Regional Park</span>
+      <span class="ticker-item">New episode of the Love Elk Grove Podcast dropping soon</span>
+      <span class="ticker-item">City Council Meeting — June 25 at City Hall</span>
+      <span class="ticker-item">Summer Concert Series returns to Old Town July 4th weekend</span>
+      <span class="ticker-item">Elk Grove Unified School District end-of-year events announced</span>
+      <span class="ticker-item">Advertise your local business — reach 10,000+ Elk Grove residents</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOP LEADERBOARD AD ═══ -->
+<div class="ad-top-wrap">
+  <!-- REPLACE THIS COMMENT WITH YOUR ADSENSE LEADERBOARD CODE (728×90)
+  <ins class="adsbygoogle ad-leaderboard"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  -->
+  <div class="ad-slot ad-leaderboard">728 × 90 — Leaderboard Ad (replace with AdSense code)</div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Elk Grove, California</span>
+    <h1>Your city.<br><em>Your community.</em><br>All right here.</h1>
+    <p class="hero-sub">Local events, honest conversations, and everything you need to stay connected to the people and places that make Elk Grove home.</p>
+    <div class="hero-btns">
+      <a href="#events" class="btn btn-gold">See What's Happening</a>
+      <a href="#podcast" class="btn btn-outline">Watch the Podcast</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PODCAST + SIDEBAR ═══ -->
+<div style="background: var(--white);">
+  <div class="page-body section-pad" id="podcast">
+    <div class="content-sidebar-layout">
+
+      <!-- Main: Podcast -->
+      <div>
+        <div class="section-hd">
+          <p class="section-eyebrow">The Love Elk Grove Podcast</p>
+          <h2 class="section-title">Real conversations<br>about our city</h2>
+          <p class="section-sub">Every week we sit down with Elk Grove residents, business owners, city leaders, and community builders to talk about what's shaping life here.</p>
+        </div>
+
+        <!-- YouTube embed — replace src when channel is live -->
+        <div class="podcast-embed-wrap" style="margin-bottom: 1.5rem;">
+          <!--
+            WHEN YOUR YOUTUBE CHANNEL IS READY:
+            Replace the placeholder div below with:
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+              title="Love Elk Grove Podcast"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          -->
+          <div class="podcast-placeholder">
+            <div class="placeholder-play">▶</div>
+            <div class="placeholder-text">
+              <strong>The Love Elk Grove Podcast</strong>
+              Coming soon — subscribe on YouTube to be notified when our first episode drops.
+            </div>
+          </div>
+        </div>
+
+        <div class="podcast-links">
+          <span>Also on:</span>
+          <a href="#" class="platform-btn">YouTube</a>
+          <a href="#" class="platform-btn">Spotify</a>
+          <a href="#" class="platform-btn">Apple Podcasts</a>
+        </div>
+
+        <!-- Mid-content ad slot -->
+        <div style="margin-top: 2.5rem;">
+          <!--
+            REPLACE WITH ADSENSE BANNER CODE (728×90 or responsive):
+            <ins class="adsbygoogle ad-banner" ...></ins>
+          -->
+          <div class="ad-slot ad-banner">Responsive Banner Ad — replace with AdSense code</div>
+        </div>
+
+        <!-- Episode list -->
+        <div style="margin-top: 2.5rem;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom: 1.2rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem;">
+            <span style="font-family:'DM Serif Display',serif; font-size:1.05rem; color:var(--slate);">Recent Episodes</span>
+            <a href="#" style="font-size:0.75rem; color:var(--blue); text-decoration:none; font-weight:600;">All episodes →</a>
+          </div>
+          <ul class="episode-list">
+            <li class="ep-item">
+              <span class="ep-num">—</span>
+              <div>
+                <div class="ep-title">Episode 1 — Coming Soon</div>
+                <div class="ep-meta ep-coming">Subscribe to get notified when the first episode drops.</div>
+              </div>
+            </li>
+          </ul>
+
+          <!-- How to update episodes — developer note -->
+          <!--
+            TO ADD EPISODES: Copy this block and paste above the "Coming Soon" item:
+            <li class="ep-item">
+              <span class="ep-num">01</span>
+              <div>
+                <div class="ep-title">Your Episode Title Here</div>
+                <div class="ep-meta">June 18, 2026 · Community · 42 min</div>
+              </div>
+            </li>
+          -->
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar-sticky">
+        <!-- Sidebar ad slot (300×250) -->
+        <div>
+          <!--
+            REPLACE WITH ADSENSE RECTANGLE CODE (300×250):
+            <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"></ins>
+          -->
+          <div class="ad-slot ad-rectangle">300 × 250<br>Sidebar Ad<br><small>Replace with AdSense code</small></div>
+        </div>
+
+        <!-- Quick links widget -->
+        <div class="sidebar-widget">
+          <div class="widget-title">Quick Links</div>
+          <ul style="list-style:none; font-size:0.85rem; line-height:2;">
+            <li><a href="#events" style="color:var(--blue); text-decoration:none;">📅 Upcoming Events</a></li>
+            <li><a href="#advertise" style="color:var(--blue); text-decoration:none;">📢 Advertise With Us</a></li>
+            <li><a href="#newsletter" style="color:var(--blue); text-decoration:none;">📬 Join the Newsletter</a></li>
+            <li><a href="mailto:hello@loveelkgrove.com" style="color:var(--blue); text-decoration:none;">✉️ Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- About widget -->
+        <div class="sidebar-widget">
+          <div class="widget-title">About This Site</div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.6;">Love Elk Grove is an independent community site run by locals, for locals. No corporate ownership — just a real love for this city.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ═══ EVENTS ═══ -->
+<div class="section-alt-wrap">
+  <div class="page-body section-pad" id="events">
+    <div class="section-hd">
+      <p class="section-eyebrow">Community Events</p>
+      <h2 class="section-title">What's happening in Elk Grove</h2>
+      <p class="section-sub">Farmers markets, city meetings, concerts, festivals — keep up with everything going on around town.</p>
+    </div>
+
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-date-block"><span class="ev-month">Jun</span><span class="ev-day">14</span></div>
+        <div class="event-info">
+          <span class="event-tag">Market</span>
+          <h3>Elk Grove Farmers Market</h3>
+          <p>Fresh local produce, flowers, artisan goods, and live music every Saturday through fall.</p>
+          <div class="event-time">8:00 AM – 1:00 PM · Elk Grove Regional Park</div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-date-block"><span class="ev-month">Jun</span><span class="ev-day">18</span></div>
+        <div class="event-info">
+          <span class="event-tag">Civic</span>
+          <h3>City Council Meeting</h3>
+          <p>Open to all residents. Agenda includes downtown development and parks budget discussion.</p>
+          <div class="event-time">6:00 PM · Elk Grove City Hall</div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-date-block"><span class="ev-month">Jun</span><span class="ev-day">22</span></div>
+        <div class="event-info">
+          <span class="event-tag">Family</span>
+          <h3>Movies in the Park</h3>
+          <p>Free family movie night at Bartholomew Park. Bring blankets and lawn chairs — food trucks on site.</p>
+          <div class="event-time">Dusk (~8:30 PM) · Bartholomew Park</div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-date-block"><span class="ev-month">Jun</span><span class="ev-day">28</span></div>
+        <div class="event-info">
+          <span class="event-tag">Business</span>
+          <h3>Elk Grove Chamber Mixer</h3>
+          <p>Monthly networking event for local business owners. Light refreshments included.</p>
+          <div class="event-time">5:30 PM · Old Town Elk Grove</div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-date-block"><span class="ev-month">Jul</span><span class="ev-day">4</span></div>
+        <div class="event-info">
+          <span class="event-tag">Festival</span>
+          <h3>Elk Grove Fireworks & Concert</h3>
+          <p>The city's biggest annual celebration with live music, food vendors, and a fireworks show.</p>
+          <div class="event-time">4:00 PM · Elk Grove Regional Park</div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-date-block"><span class="ev-month">Jul</span><span class="ev-day">12</span></div>
+        <div class="event-info">
+          <span class="event-tag">Community</span>
+          <h3>Neighborhood Clean-Up Day</h3>
+          <p>Volunteer with your neighbors to keep Elk Grove beautiful. Supplies provided, coffee served.</p>
+          <div class="event-time">8:00 AM – 12:00 PM · Meet at City Hall</div>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      TO ADD A NEW EVENT: Copy one .event-card block above and update the
+      month, day, tag, title, description, and time. That's it.
+    -->
+
+    <div class="events-footer">
+      <p>Know about an event we missed?</p>
+      <a href="mailto:hello@loveelkgrove.com?subject=Event%20Submission" class="btn btn-blue">Email Us Your Event</a>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ═══ ADVERTISE ═══ -->
+<section class="advertise-section" id="advertise">
+  <h2>Reach Elk Grove</h2>
+  <p>Love Elk Grove is read by thousands of local residents. Put your business, event, or service in front of people who actually live here.</p>
+
+  <div class="ad-tiers">
+    <div class="ad-tier">
+      <div class="ad-tier-name">Leaderboard</div>
+      <div class="ad-tier-size">728 × 90 px</div>
+      <div class="ad-tier-placement">Top of every page</div>
+    </div>
+    <div class="ad-tier">
+      <div class="ad-tier-name">Sidebar</div>
+      <div class="ad-tier-size">300 × 250 px</div>
+      <div class="ad-tier-placement">Podcast & events pages</div>
+    </div>
+    <div class="ad-tier">
+      <div class="ad-tier-name">Banner</div>
+      <div class="ad-tier-size">Responsive</div>
+      <div class="ad-tier-placement">Mid-content placement</div>
+    </div>
+    <div class="ad-tier">
+      <div class="ad-tier-name">Event Sponsor</div>
+      <div class="ad-tier-size">Featured listing</div>
+      <div class="ad-tier-placement">Top of events section</div>
+    </div>
+  </div>
+
+  <a href="mailto:hello@loveelkgrove.com?subject=Advertising%20Inquiry" class="btn btn-gold">Get in Touch About Advertising</a>
+</section>
+
+<!-- ═══ NEWSLETTER ═══ -->
+<section class="newsletter" id="newsletter">
+  <h2>Stay in the loop</h2>
+  <p>Get a weekly roundup of Elk Grove events, news, and new podcast episodes — straight to your inbox. Free, always.</p>
+  <!--
+    Connect this form to Mailchimp, ConvertKit, or any free email service.
+    Replace the action URL below with your list's embed action URL.
+  -->
+  <div class="nl-form">
+    <input type="email" placeholder="your@email.com" aria-label="Email address" />
+    <button class="btn btn-blue" type="button">Subscribe Free</button>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="heart">♥</span> Love Elk Grove</div>
+    <nav class="footer-links">
+      <a href="#podcast">Podcast</a>
+      <a href="#events">Events</a>
+      <a href="#advertise">Advertise</a>
+      <a href="#newsletter">Newsletter</a>
+      <a href="mailto:hello@loveelkgrove.com">Contact</a>
+    </nav>
+    <div class="footer-copy">© 2026 Love Elk Grove · Independent &amp; locally run · Elk Grove, CA · <a href="mailto:hello@loveelkgrove.com">hello@loveelkgrove.com</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
